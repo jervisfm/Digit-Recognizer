@@ -31,7 +31,7 @@ end
 
 imagesNo = fread(file,1,'int32'); % Number of Image Samples
 rowSize = fread(file,1,'int32'); %Number of Rows
-colSize = fread(file,1,'int32'); % number of columsn
+colSize = fread(file,1,'int32'); % number of columns
 
 
 % Lessons learnt
@@ -122,6 +122,8 @@ for i = 1: imagesNo
     train_data{i} = img_sample; 
 end
 
+fclose(file); %close file handle. 
+
 
 %{
 close all;
@@ -147,7 +149,7 @@ close all;
     fclose(file); 
 %}
 
-%Read in the Training Labels. 
+%% Read in the Training Labels. 
 path = '.\MNIST\train-labels.idx1-ubyte';
 file = fopen(path, 'r', 'b'); %b is for big-endian. 
 
@@ -157,11 +159,60 @@ if(magicNumber ~= 2049)
     return; % stop processsing
 end
 
-
 itemsNo = fread(file,1,'int32'); % Number of Labelled Items Samples 
 for j = 1:itemsNo
    train_labels{j} = fread(file, 1, 'uint8');
 end
+
+
+%% Read in the Test Data
+path = '.\MNIST\t10k-images.idx3-ubyte';
+file = fopen(path, 'r', 'b'); %b is for big-endian. 
+
+magicNumber = fread(file,1,'int32'); 
+if(magicNumber ~= 2051)
+    disp('Error: Cannot find magic number of 2051. Please check to make sure that file is in IDX format');
+    return; % stop processsing
+end
+
+testImagesNo = fread(file,1,'int32'); % Number of Image Samples
+rowSize = fread(file,1,'int32'); %Number of Rows
+colSize = fread(file,1,'int32'); % number of columns
+
+%read in the actual data
+for i = 1: testImagesNo
+    img = fread(file, [rowSize colSize], 'uint8') ;  % pixel values stored as a single unsigned byte
+    img =  img'; % transpose it so that image matrix faithfully represents stored binary data. See lessons learnt section above. 
+   
+    %Convert the values to doubles and normalize the image matrix by the
+    %maximum value. 
+    img = double(img); 
+    img = img / max(img(:));
+    
+    test_data{i} = img; 
+end
+
+
+%% Read in the Test Data Labels
+path = '.\MNIST\t10k-labels.idx1-ubyte';
+file = fopen(path, 'r', 'b'); %b is for big-endian. 
+
+magicNumber = fread(file,1,'int32'); 
+if(magicNumber ~= 2049)
+    disp('Error: Cannot find magic number of 2049. Please check to make sure that file is in IDX format');
+    return; % stop processsing
+end
+
+itemsNo = fread(file,1,'int32'); % Number of Labelled Items Samples 
+for j = 1:itemsNo
+   test_labels{j} = fread(file, 1, 'uint8');
+end
+
+disp('MNIST Data successully loaded');
+
+
+
+
     
 
 
