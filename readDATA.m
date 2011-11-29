@@ -1,7 +1,14 @@
 % Jervis Muindi
 % 28th November 2011
-% Code to read in MNIST Binary data files
+% MATLAB Code to read in MNIST Binary data files
+% obtained from http://yann.lecun.com/exdb/mnist/
 
+%Function return values: 
+% train_data -> cell array that has the training image matrices
+% train_labels -> cell array that has the actual values of the train data
+% images
+% test_data -> test data image matrix
+% test_labels -> test data image matrix labels
 function [train_data, train_labels, test_data, test_labels] = readDATA()
 
 path = '.\MNIST\train-images.idx3-ubyte';
@@ -23,6 +30,7 @@ Format of train image files is as follows :
 ........ 
 xxxx     unsigned byte   ??               pixel
 %}
+
 magicNumber = fread(file,1,'int32'); 
 if(magicNumber ~= 2051)
     disp('Error: Cannot find magic number of 2051. Please check to make sure that file is in IDX format');
@@ -35,81 +43,19 @@ colSize = fread(file,1,'int32'); % number of columns
 
 
 % Lessons learnt
-% 1) giving a matrix size when using matlab fread, what you get is a image
-% matrix that has been tranposed. To undo, this operation, we simply
-% tranpose it once AND then it is the same format and it would have been if
-% we had read in the data manually one byte at a time.
+% 1) giving a matrix size as an argument when using matlab fread, what you get is a image
+% matrix that has been tranposed. To undo this, we simply tranpose it once
+% AND then it is the same format and it would have been if we had read 
+% in the data manually one byte at a time.
 %
-% 2)the other  choice is of course to read in the image pixel
-% values of the 28x28 image, one at a time, to an array. 
+% 2) the other choice is of course to read in the image pixel
+% values of the 28x28 image, one byte at a time, to an array. 
 % 
-% 3) there is NO difference in matlab between uint8 and ubit8 are interpretted.  
-%
-
-%{
-    %  read in a single digit
-c = 1;
-a = [];
-for s = 1:784
-   ss = fread(file, 1 , 'ubit8') ;  % ubit8 read in correctly.WORKS. need to parse manually though .
-   %ss = uint8(ss);
-   a = [a; ss];
-   fprintf('%d) %x\n', c, ss); 
-   %fprintf('%x\n', ss); 
-   c = c + 1;
-   
-end
-
-c = 1;
-for i = 1:28
-    for j = 1:28
-        x(i,j) = a(c);
-        c = c+1;
-    end
-end
-
-x
-
-error('aaaaa');
-%}
+% 3) there is NO difference in matlab between how uint8 and ubit8 are
+% interpretted in the context of this data.  
 
 
-
-%{
-%read in a whole image with matlab array. 
-for s = 1:1
-   ss = fread(file, [rowSize colSize] , 'ubit8') ; 
-   [rr,cc] = size(ss);
-   
-   
-   ss'
-   %ss = ss';
-   
-   error('xxxxxx');
-   
-   c = 0;
-   for ii = 1:rr
-       for jj = 1:cc
-           t = ss(ii,jj);
-           %t = ss(jj,ii);
-           fprintf('%x\n',t);
-            c = c + 1;
-       end
-   end
-   disp('');
-   disp(c);
-   error('sssssssxxxx');
-end
-%}
-
-
-
-
-%error('early sttop...');
-
-X = [];
-
-%Read in the training data. 
+%Read in the actual training data. 
 for i = 1: imagesNo
     img_sample = fread(file, [rowSize colSize], 'uint8') ;  % pixel values stored as a single unsigned byte
     img_sample =  img_sample'; % transpose it so that image matrix faithfully represents stored binary data. See lessons learnt section above. 
@@ -126,29 +72,16 @@ fclose(file); %close file handle.
 
 
 %{
-close all;
-    figure(1);
-    X'
-    imshow(X');
-    
-    error('tttttttt');
-    
-    size(xd);
-    
-    xr = X;
-    xr(1:end,:) = xr(end:-1:1,:); % mirror the image. 
-    xr = imrotate(xr,-90);
-    
-    %xr = imresize(xr, 4); %dont resize
-    imshow(xr);
-    size(xr);
-    %imwrite.  save to file
-    
- %error('s');
- 
-    fclose(file); 
+Format of training label binary file is as follows: 
+[offset] [type]          [value]          [description] 
+0000     32 bit integer  0x00000801(2049) magic number (MSB first) 
+0004     32 bit integer  60000            number of items 
+0008     unsigned byte   ??               label 
+0009     unsigned byte   ??               label 
+........ 
+xxxx     unsigned byte   ??               label
+The labels values are 0 to 9.
 %}
-
 %% Read in the Training Labels. 
 path = '.\MNIST\train-labels.idx1-ubyte';
 file = fopen(path, 'r', 'b'); %b is for big-endian. 
@@ -164,6 +97,7 @@ for j = 1:itemsNo
    train_labels{j} = fread(file, 1, 'uint8');
 end
 
+fclose(file); 
 
 %% Read in the Test Data
 path = '.\MNIST\t10k-images.idx3-ubyte';
@@ -192,6 +126,7 @@ for i = 1: testImagesNo
     test_data{i} = img; 
 end
 
+fclose(file); 
 
 %% Read in the Test Data Labels
 path = '.\MNIST\t10k-labels.idx1-ubyte';
@@ -209,13 +144,3 @@ for j = 1:itemsNo
 end
 
 disp('MNIST Data successully loaded');
-
-
-
-
-    
-
-
-
-
-
