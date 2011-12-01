@@ -11,7 +11,7 @@
 % test_labels -> test data image matrix labels
 function [train_data, train_labels, test_data, test_labels] = readDATA()
 
-path = '.\MNIST\train-images.idx3-ubyte';
+path = './MNIST/train-images.idx3-ubyte';
 
 %Note: Big endian means that a number is represented in a way such that
 % the most significant bit is first. This is typical/consistent with how 
@@ -83,7 +83,7 @@ xxxx     unsigned byte   ??               label
 The labels values are 0 to 9.
 %}
 %% Read in the Training Labels. 
-path = '.\MNIST\train-labels.idx1-ubyte';
+path = './MNIST/train-labels.idx1-ubyte';
 file = fopen(path, 'r', 'b'); %b is for big-endian. 
 
 magicNumber = fread(file,1,'int32'); 
@@ -100,7 +100,7 @@ end
 fclose(file); 
 
 %% Read in the Test Data
-path = '.\MNIST\t10k-images.idx3-ubyte';
+path = './MNIST/t10k-images.idx3-ubyte';
 file = fopen(path, 'r', 'b'); %b is for big-endian. 
 
 magicNumber = fread(file,1,'int32'); 
@@ -129,7 +129,7 @@ end
 fclose(file); 
 
 %% Read in the Test Data Labels
-path = '.\MNIST\t10k-labels.idx1-ubyte';
+path = './MNIST/t10k-labels.idx1-ubyte';
 file = fopen(path, 'r', 'b'); %b is for big-endian. 
 
 magicNumber = fread(file,1,'int32'); 
@@ -144,3 +144,47 @@ for j = 1:itemsNo
 end
 
 disp('MNIST Data successully loaded');
+
+
+function showImage()
+
+
+
+[train_data, train_labels, test_data, test_labels] = readDATA(); 
+
+figure(1); 
+X = [];
+c = 1;
+temp = [];
+for i = 1:60000
+    x = train_data{i}; 
+    temp = [temp; x];
+    
+    if(mod(i,20) == 1 )
+        %X = [X; x];
+        continue;
+    end
+    
+    if(mod(i,20) == 0 )
+    
+        X = [X; temp];
+        temp = [];
+        %C{c} = X;
+        %c = c + 1;
+        continue;
+    end
+    
+    
+    
+    %X = [X x];
+end
+
+%Y = [];
+%sz = size(C);
+%for i = 1 : sz
+%    Y = [Y ; C{i}];
+%end
+
+imshow(X); 
+
+
