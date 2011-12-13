@@ -1,3 +1,6 @@
+% Jervis Muindi
+% Biometrics
+% Dec 2011
 function [ signals, PC, V ] = pca( data )
 % Perform PCA. 
 % Data is the data matrix having dimensions in the columns and each image vector in the rows
@@ -24,7 +27,7 @@ data = data - repmat(mn,1,N);
 size(data)
 disp('computing conv');
 
-covariance = 1 / (N-1) * (data * data') ; 
+covariance = 1 / (N-1) * data * data' ; 
 
 disp('finding eig vals');
 %find the eigen vectors and eigen values
@@ -39,8 +42,8 @@ V = diag(V);
 
 V = sorted; 
 disp(' e v');
-V
-rindices = rindices(1:10, :);
+%V
+rindices = rindices(1:20, :);
 %size(rindices)
 
 %PC = PC(:, rindices); 

@@ -39,6 +39,10 @@ for i = 1:arr_length
     img = img / max(img(:)); % normalize values to have maximum of 1. 
     img = darken(img);  %binarize image and convert to a black background.
     
+    %do extraction and make it fill up entire 28x28
+    %img = extract(img);
+    %img = imresize(img, [28 28]);
+    
     test_images{i} = img; 
     test_labels(i) = mod(i,10); 
 
@@ -48,23 +52,8 @@ end
 
 end
 
-% Converts from from white background to black background and
-% Binarizes the image in the process. 
-function r = darken(A)
 
-    rows = size(A,1);
-    cols = size(A,2);
 
-    for i = 1:rows
-        for j = 1:cols
-            if(A(i,j) == 1)
-                A(i,j) = 0;
-            else
-                A(i,j) = 1; %now we're binarizing img. 
-            end
-        end
-    end
-    
-    r = A; 
-end
+
+
 

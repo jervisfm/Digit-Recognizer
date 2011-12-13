@@ -1,4 +1,6 @@
-
+% Jervis Muindi
+% Biometrics
+% Dec 2011
 
 function r = darken(A)
 %convert from white background to black background
