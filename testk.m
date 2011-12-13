@@ -1,6 +1,6 @@
-function  test()
-%Nearest neighbor classifier.
-%   Runs on size 10,000. sizeTest should be edited to run smaller sizes. Expect this to run for about 80 minutes.
+function  testk(k)
+%K-nearest neighbor classifier
+%  Call with values of k to test. Defaults to test size of 2000 for speed reasons. Can be edited to run with size 10,000.
 
 % 96 accuracy for test data. of size 2000. 
 
@@ -11,7 +11,7 @@ disp('reading data');
 
 sizeTrain = size(train_data,2); 
 sizeTest = size(test_data,2); 
-sizeTest = 10000;
+sizeTest = 2000;
 %Do a quick nearest neighbor test classification. 
 errors = 0; 
 
@@ -23,9 +23,11 @@ for i = 1:sizeTest
     tv = test_data{i}; 
     tv = tv(:); 
     
+    minIdxVec = zeros(1,k);
+    minDistVec = zeros(1,k) + Inf;
     
-    minIdx = 0;
-    minDist = Inf; 
+%     minIdx = 0;
+%     minDist = Inf; 
     
     for j = 1:sizeTrain
         
@@ -34,10 +36,13 @@ for i = 1:sizeTest
         diff = tv - av; 
         dist = norm(diff,2); 
         
+        % get the nearest neighbor that is furthest away and its index
+        [minDist, minDistIdx] = max(minDistVec);
+        
         if(dist < minDist)
-            minDist = dist;
+            minDistVec(minDistIdx) = dist;
             %disp(j);
-            minIdx = j;
+            minIdxVec(minDistIdx) = j;
         end
         %disp('running');
         %disp(dist);
@@ -47,6 +52,7 @@ for i = 1:sizeTest
     
     %save result; 
     
+    minIdx = mode(minIdxVec);
     result(i) = train_labels{minIdx}; 
     
     

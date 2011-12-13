@@ -7,7 +7,7 @@ disp('reading data');
 
 [test_data, test_labels] = loadHndDATA();
 
-train_data = preprocTD(train_data); % convert pixel to bounded box
+train_data = procTD(train_data); % convert pixel to bounded box
 
 sizeTrain = size(train_data,2); 
 sizeTest = size(test_data,2); 
@@ -21,7 +21,7 @@ for i = 1:sizeTest
     
     fprintf('test %d - ', i); 
     tv = test_data{i}; 
-    tv = preproc(tv); % pre process and bind it to box
+    tv = proc(tv); % pre process and bind it to box
     tv = tv(:); 
     
     
