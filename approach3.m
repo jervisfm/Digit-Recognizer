@@ -1,8 +1,6 @@
-% Jervis Muindi
-% Does classification on test data set. 
-% By applying nearest neighbor directly
-% on extracted digits that have been bounded to 
-% a box and also thickening the test images by 2 pixels. 
+%Jervis Muindi
+% Biometrics
+% K-nearest neighbor with K = 3. 
 function   approach3()
 % Does a test for classifying the handwritten images. 
 
@@ -10,94 +8,6 @@ disp('reading data');
 % assume, we have loaded
 [train_data, train_labels ] = readDATA();
 train_data = procTD(train_data);% Process the trainig data to bound image to a bounding box.
-
-[test_data, test_labels] = loadHndDATA();
-
-sizeTrain = size(train_data,2); 
-sizeTest = size(test_data,2); 
-sizeTest = 50;
-
-%Do a quick nearest neighbor test classification. 
-errors = 0; 
-for i = 1:sizeTest
-    
-    fprintf('test %d - ', i); 
-    tv = test_data{i}; 
-    %process the test image so that it's also bound to a box of 28 x 28 and also thicken it by adding 2 pixels to digit outline..
-    tv = proc2(tv); 
-    tv = tv(:); 
-  
-    minIdx = 0;
-    minDist = Inf; 
-    
-    for j = 1:sizeTrain
-        
-        av = train_data{j};
-        av = av(:); 
-        diff = tv - av; 
-        dist = norm(diff,2); 
-        
-        if(dist < minDist)
-            minDist = dist;
-            %disp(j);
-            minIdx = j;
-        end
-        %disp('running');
-        %disp(dist);
-        
-    end
-    %error('s');
-    
-    %save result; 
-    
-    result(i) = train_labels{minIdx}; 
-    
-    
-    %do accuracy checking in line
-    if( test_labels(i) ~= result(i) )
-        errors = errors + 1;
-        
-    end
-    
-    tot = i;
-    curr_acc = (tot - errors) / tot; 
-        
-    if( test_labels(i) ~= result(i) )
-        
-        fprintf('Curr Accuracy: %f | %d,%d.\n', curr_acc, test_labels(i),result(i) );
-        figure;
-        im = [test_data{i} train_data{minIdx} ];
-        %imshow(im);
-        continue;
-    end
-        
-    fprintf('Curr Accuracy: %f.\n', curr_acc);
-
-end
-
-
-
-end
-
-
-
-
-
-
-
-
-
-
-
-%{
-K NEaREST NEIGHTBOR
-
-function   testhnd()
-% Does a test for classifying the handwritten images. 
-
-disp('reading data');
-% assume, we have loaded
-[train_data, train_labels ] = readDATA();
 
 [test_data, test_labels] = loadHndDATA();
 
@@ -114,6 +24,7 @@ for i = 1:sizeTest
     
     fprintf('test %d - ', i); 
     tv = test_data{i}; 
+    tv = proc(tv); %process the test image so that it's also bound to a box of 28 x 28.
     tv = tv(:); 
     
     
@@ -175,8 +86,8 @@ for i = 1:sizeTest
     
     if( test_labels(i) ~= result(i) )
         
-        fprintf('Curr Accuracy: %f | %d,%d.\n', curr_acc, test_labels(i),result(i) );
-        figure;
+        fprintf('Curr Accuracy: %f | %d,%d.\n', curr_acc, test_labels(i),result(i) ); % print out actual number | classified number.
+        %figure;
         continue;
     end
     fprintf('Curr Accuracy: %f.\n', curr_acc );
@@ -186,5 +97,3 @@ end
 
 
 end
-
-%}

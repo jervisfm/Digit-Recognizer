@@ -16,7 +16,7 @@ disp('reading data');
 
 sizeTrain = size(train_data,2); 
 sizeTest = size(test_data,2); 
-sizeTest = 50;
+sizeTest = 200;
 
 %Do a quick nearest neighbor test classification. 
 errors = 0; 
@@ -64,9 +64,9 @@ for i = 1:sizeTest
     if( test_labels(i) ~= result(i) )
         
         fprintf('Curr Accuracy: %f | %d,%d.\n', curr_acc, test_labels(i),result(i) );
-        figure;
+        %figure;
         im = [test_data{i} train_data{minIdx} ];
-        imshow(im);
+        %imshow(im);
         continue;
     end
         

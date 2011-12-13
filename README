@@ -1,8 +1,45 @@
-Jervis Muindi
-Varun Ravishankar
-Biometric Project
-28th November 2011
-
+Jervis Muindi (jjm2190)
+Varun Ravishankar (vr2263)
+Biometric Final Project
+12th December 2011
+---------------------------
 About
 =======
 This is a handwritten digit recognizer that uses a nearest neighbor classifier to recognize handwritten single digits. 
+
+
+Files:
+=======
+readDATA.m          ->  reads in the MNIST dataset. The data should be in a subdirectory called 'MNIST'
+loadHndDATA.m       ->  reads in the manually collected images. These images should in a subdirectory called 'img'
+procTD.m            ->  Processes the MNIST training set and bounds the images to 28x28 bounding box.
+proc.m              ->  Processes a test image and bounds it in a 28x28 bounding box.
+approach1.m         ->  Does classification using raw features
+approach2.m         ->  Binds digits to a bounding box and then applies nearest neighbor classifer
+approach3.m         ->  Does nearest neighbor classification with K = 3.
+extract.m           ->  Finds the bounding box in an image with a digit and returns that bounding box.
+binarze.m           ->  Converts an image to a binary image of 0s and 1s.
+pca.m               ->  Implements PCA
+dopca.m             ->  Tests PCA apporach to see how well it does. 
+darken.m            ->  Converts white background in a image to a black background. 
+
+
+
+Before Running
+==============
+Make sure that the directory structure is as follows: 
+
+1) MNIST : This directory should contain all of the MNIST raw data set and it should be in extracted form. You can download the dataset from http://yann.lecun.com/exdb/mnist/
+2) img   : This should contain the 200 scanned images.
+
+If you do not have this structure, you will get a file not found error as the scripts expects the data to be in these locations.
+
+
+Independent Dataset
+===================
+For the classification of the independently gathered dataset, the relevant files are :
+approach1.m ; approach2.m and approach3.m and dopca.m.
+
+When you run these you scripts you will get a current estimate of how well the classifier is doing on test data. Also note that
+the scripts output estimated time of completion when carrying out computationally intensive task that can take a while to run. 
+Refers to the files description above to infer what each file does and for more details please see the report of Jervis Muindi. 

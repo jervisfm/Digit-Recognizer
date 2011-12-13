@@ -1,6 +1,6 @@
 
 %thickens number outline
-function r = thicken(A)
+function r = thickem(A)
 
     %essentially binarize image. 
     rows = size(A,1);

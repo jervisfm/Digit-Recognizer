@@ -66,9 +66,13 @@ for i = 1: imagesNo
     img_sample = img_sample / max(img_sample(:));
     
     train_data{i} = img_sample; 
+    
 end
 
 fclose(file); %close file handle. 
+
+
+
 
 
 %{
@@ -145,6 +149,12 @@ end
 
 disp('MNIST Data successully loaded');
 
+end
+
+
+
+
+
 
 function showImage()
 
@@ -188,3 +198,4 @@ end
 imshow(X); 
 
 
+end
