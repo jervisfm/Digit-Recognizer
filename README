@@ -36,6 +36,14 @@ Make sure that the directory structure is as follows:
 
 If you do not have this structure, you will get a file not found error as the scripts expects the data to be in these locations.
 
+MNIST Dataset
+===================
+For the classification of the MNIST dataset, the relevant files are :
+test.m, and testk.m.
+
+When you run these you scripts you will get a current estimate of how well the classifier is doing on test data. 
+Refers to the files description above to infer what each file does and for more details please see the report of Varun Ravishankar. 
+
 
 Independent Dataset
 ===================
