@@ -22,15 +22,17 @@ binarze.m           ->  Converts an image to a binary image of 0s and 1s.
 pca.m               ->  Implements PCA
 dopca.m             ->  Tests PCA apporach to see how well it does. 
 darken.m            ->  Converts white background in a image to a black background. 
-
+test.m				->	Tests nearest neighbor classifier on MNIST dataset. Currently set to test all 10,000 images; edit sizeTest for smaller size.
+testk.m				->	Tests k-nearest neighbor classifier on MNIST dataset. Set to test 2,000 images; edit sizeTest for different size.
+						Takes one parameter, k.
 
 
 Before Running
 ==============
 Make sure that the directory structure is as follows: 
 
-1) MNIST : This directory should contain all of the MNIST raw data set and it should be in extracted form. You can download the dataset from http://yann.lecun.com/exdb/mnist/
-2) img   : This should contain the 200 scanned images.
+1) MNIST/ : This directory should contain all of the MNIST raw data set and it should be in extracted form. You can download the dataset from http://yann.lecun.com/exdb/mnist/
+2) img/   : This should contain the 200 scanned images.
 
 If you do not have this structure, you will get a file not found error as the scripts expects the data to be in these locations.
 
