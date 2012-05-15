@@ -5,7 +5,7 @@ Biometric Final Project
 ---------------------------
 About
 =======
-This is a handwritten digit recognizer that uses a nearest neighbor classifier to recognize handwritten single digits. 
+This is a handwritten digit recognizer that uses a nearest neighbor classifier to recognize handwritten single digits.
 
 
 Files:
@@ -20,16 +20,16 @@ approach3.m         ->  Does nearest neighbor classification with K = 3.
 extract.m           ->  Finds the bounding box in an image with a digit and returns that bounding box.
 binarze.m           ->  Converts an image to a binary image of 0s and 1s.
 pca.m               ->  Implements PCA
-dopca.m             ->  Tests PCA apporach to see how well it does. 
-darken.m            ->  Converts white background in a image to a black background. 
-test.m				->	Tests nearest neighbor classifier on MNIST dataset. Currently set to test all 10,000 images; edit sizeTest for smaller size.
+dopca.m             ->  Tests PCA apporach to see how well it does.
+darken.m            ->  Converts white background in a image to a black background.
+test.m 				->	Tests nearest neighbor classifier on MNIST dataset. Currently set to test all 10,000 images; edit sizeTest for smaller size.
 testk.m				->	Tests k-nearest neighbor classifier on MNIST dataset. Set to test 2,000 images; edit sizeTest for different size.
-						Takes one parameter, k.
+       				  		Takes one parameter, k.
 
 
 Before Running
 ==============
-Make sure that the directory structure is as follows: 
+Make sure that the directory structure is as follows:
 
 1) MNIST/ : This directory should contain all of the MNIST raw data set and it should be in extracted form. You can download the dataset from http://yann.lecun.com/exdb/mnist/
 2) img/   : This should contain the 200 scanned images.
@@ -42,8 +42,8 @@ MNIST Dataset
 For the classification of the MNIST dataset, the relevant files are :
 test.m, and testk.m.
 
-When you run these you scripts you will get a current estimate of how well the classifier is doing on test data. 
-Refers to the files description above to infer what each file does and for more details please see the report of Varun Ravishankar. 
+When you run these you scripts you will get a current estimate of how well the classifier is doing on test data.
+Refers to the files description above to infer what each file does and for more details please see the report of Varun Ravishankar.
 
 
 Independent Dataset
@@ -52,5 +52,9 @@ For the classification of the independently gathered dataset, the relevant files
 approach1.m ; approach2.m and approach3.m and dopca.m.
 
 When you run these you scripts you will get a current estimate of how well the classifier is doing on test data. Also note that
-the scripts output estimated time of completion when carrying out computationally intensive task that can take a while to run. 
-Refers to the files description above to infer what each file does and for more details please see the report of Jervis Muindi. 
+the scripts output estimated time of completion when carrying out computationally intensive task that can take a while to run.
+Refers to the files description above to infer what each file does and for more details please see the report of Jervis Muindi.
+
+License
+===================
+All source code is licensed under the Simplified BSD license (2-clause BSD). All documentation is licensed under the FreeBSD Documentation License.
